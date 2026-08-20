@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SmartSheet Hub — Premium Worksheets & Templates</title>
+
+  <meta
+    name="description"
+    content="SmartSheet Hub — premium worksheets and templates designed to save time and make learning and work easier."
+  >
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f6f7fb;
+      color: #182033;
+      line-height: 1.6;
+    }
+
+    .container {
+      width: min(1100px, 92%);
+      margin: auto;
+    }
+
+    header {
+      background: white;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 20px 0;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: 800;
+    }
+
+    .logo span {
+      font-weight: 400;
+    }
+
+    .hero {
+      background: white;
+      text-align: center;
+      padding: 75px 20px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #eef1ff;
+      padding: 7px 14px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: clamp(40px, 7vw, 68px);
+      line-height: 1.05;
+      margin: 20px auto;
+      max-width: 850px;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: auto;
+      color: #626b7d;
+      font-size: 19px;
+    }
+
+    .section {
+      padding: 65px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 35px;
+      margin-bottom: 12px;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 40px;
+      color: #687386;
+    }
+
+    .packages {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 25px;
+    }
+
+    .package {
+      background: white;
+      border: 1px solid #e2e5eb;
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 8px 25px rgba(0,0,0,.05);
+    }
+
+    .package.ultimate {
+      border: 2px solid #182033;
+    }
+
+    .package h3 {
+      font-size: 29px;
+      margin-top: 0;
+    }
+
+    .price {
+      font-size: 34px;
+      font-weight: 900;
+      margin: 15px 0;
+    }
+
+    .package ul {
+      padding-left: 22px;
+    }
+
+    .package li {
+      margin: 10px 0;
+    }
+
+    .button {
+      display: inline-block;
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      padding: 15px;
+      background: #182033;
+      color: white;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .button:hover {
+      opacity: .9;
+    }
+
+    .purchase {
+      max-width: 650px;
+      margin: auto;
+      background: white;
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 8px 25px rgba(0,0,0,.05);
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 16px 0 7px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #cfd4dd;
+      border-radius: 9px;
+      font-size: 16px;
+    }
+
+    .selected-product {
+      background: #f1f3f7;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .notice {
+      background: #f5f7fa;
+      padding: 15px;
+      border-radius: 10px;
+      margin: 20px 0;
+      color: #626b7d;
+      font-size: 14px;
+    }
+
+    #message {
+      display: none;
+      margin-top: 15px;
+      padding: 14px;
+      border-radius: 9px;
+    }
+
+    .success {
+      display: block !important;
+      background: #eaf8ef;
+      color: #176b36;
+    }
+
+    .error {
+      display: block !important;
+      background: #fff0f0;
+      color: #9a2020;
+    }
+
+    footer {
+      background: #182033;
+      color: white;
+      text-align: center;
+      padding: 35px 20px;
+    }
+
+    @media (max-width: 750px) {
+      .packages {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+    <div class="logo">
+      SmartSheet <span>Hub</span>
+    </div>
+
+    <a class="button" style="width:auto;padding:11px 18px;" href="#packages">
+      View Packs
+    </a>
+  </div>
+</header>
+
+<section class="hero">
+
+  <div class="badge">
+    PREMIUM DIGITAL RESOURCES
+  </div>
+
+  <h1>
+    Work smarter with ready-to-use worksheets and templates.
+  </h1>
+
+  <p>
+    Get professionally organized digital resources designed to save time,
+    improve learning and make everyday work easier.
+  </p>
+
+</section>
+
+<section class="section" id="packages">
+
+  <div class="container">
+
+    <h2 class="section-title">
+      Choose Your SmartSheet Hub Pack
+    </h2>
+
+    <p class="section-subtitle">
+      Select the package that best fits your needs.
+      Your digital files are delivered securely after successful payment.
+    </p>
+
+    <div class="packages">
+
+      <!-- PRO -->
+
+      <div class="package">
+
+        <h3>Pro Pack</h3>
+
+        <p>
+          A powerful collection of premium worksheets and templates.
+        </p>
+
+        <div class="price">
+          UGX 120,000
+        </div>
+
+        <ul>
+          <li>Complete Pro digital pack</li>
+          <li>Ready-to-use worksheets</li>
+          <li>Premium templates</li>
+          <li>Secure digital delivery</li>
+          <li>Up to 3 downloads</li>
+        </ul>
+
+        <button
+          class="button"
+          onclick="chooseProduct('pro', 120000)"
+        >
+          Buy Pro — UGX 120,000
+        </button>
+
+      </div>
+
+
+      <!-- ULTIMATE -->
+
+      <div class="package ultimate">
+
+        <h3>Ultimate Pack</h3>
+
+        <p>
+          The complete premium collection for maximum value.
+        </p>
+
+        <div class="price">
+          UGX 180,000
+        </div>
+
+        <ul>
+          <li>Complete Ultimate digital pack</li>
+          <li>Expanded worksheets</li>
+          <li>Premium templates</li>
+          <li>Secure digital delivery</li>
+          <li>Up to 3 downloads</li>
+        </ul>
+
+        <button
+          class="button"
+          onclick="chooseProduct('ultimate', 180000)"
+        >
+          Buy Ultimate — UGX 180,000
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<section class="section" id="checkout">
+
+  <div class="container">
+
+    <h2 class="section-title">
+      Complete Your Purchase
+    </h2>
+
+    <p class="section-subtitle">
+      Enter your details below. You will then be taken to Jjuma's
+      secure payment checkout.
+    </p>
+
+    <div class="purchase">
+
+      <div class="selected-product" id="selectedProduct">
+        Selected: Pro Pack — UGX 120,000
+      </div>
+
+      <form id="purchaseForm">
+
+        <label for="customerName">
+          Full Name
+        </label>
+
+        <input
+          id="customerName"
+          type="text"
+          placeholder="Your full name"
+          required
+        >
+
+
+        <label for="customerEmail">
+          Email Address
+        </label>
+
+        <input
+          id="customerEmail"
+          type="email"
+          placeholder="you@example.com"
+          required
+        >
+
+
+        <label for="customerPhone">
+          Phone Number
+        </label>
+
+        <input
+          id="customerPhone"
+          type="tel"
+          placeholder="+256..."
+          required
+        >
+
+
+        <div class="notice">
+          After successful payment, your order will be processed automatically.
+          Your secure digital delivery will then be generated.
+        </div>
+
+
+        <button
+          type="submit"
+          class="button"
+          id="paymentButton"
+        >
+          Continue to Secure Payment
+        </button>
+
+        <div id="message"></div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<footer>
+
+  <p>
+    © <span id="year"></span> SmartSheet Hub
+  </p>
+
+  <p>
+    Premium Worksheets & Templates
+  </p>
+
+</footer>
+
+
+<script>
+
+  /*
+    YOUR DEPLOYED SUPABASE FUNCTION
+  */
+
+  const CREATE_PAYMENT_URL =
+    "https://chnwjktgwiijkxbiwjkc.supabase.co/functions/v1/create-jjuma-payment";
+
+
+  let selectedProduct = "pro";
+  let selectedAmount = 120000;
+
+
+  function chooseProduct(product, amount) {
+
+    selectedProduct = product;
+    selectedAmount = amount;
+
+    document.getElementById("selectedProduct").textContent =
+      product === "pro"
+        ? "Selected: Pro Pack — UGX 120,000"
+        : "Selected: Ultimate Pack — UGX 180,000";
+
+    document
+      .getElementById("checkout")
+      .scrollIntoView({ behavior: "smooth" });
+
+  }
+
+
+  document
+    .getElementById("purchaseForm")
+    .addEventListener("submit", async function(event) {
+
+      event.preventDefault();
+
+      const message =
+        document.getElementById("message");
+
+      const button =
+        document.getElementById("paymentButton");
+
+
+      message.className = "";
+      message.style.display = "block";
+      message.textContent =
+        "Creating your secure payment...";
+
+      button.disabled = true;
+
+
+      const payload = {
+
+        product: selectedProduct,
+
+        customer_name:
+          document
+            .getElementById("customerName")
+            .value
+            .trim(),
+
+        customer_email:
+          document
+            .getElementById("customerEmail")
+            .value
+            .trim(),
+
+        customer_phone:
+          document
+            .getElementById("customerPhone")
+            .value
+            .trim()
+
+      };
+
+
+      try {
+
+        const response =
+          await fetch(
+            CREATE_PAYMENT_URL,
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type": "application/json"
+              },
+
+              body:
+                JSON.stringify(payload)
+            }
+          );
+
+
+        const data =
+          await response.json();
+
+
+        if (
+          !response.ok ||
+          !data.success ||
+          !data.payment_url
+        ) {
+
+          throw new Error(
+            data.error ||
+            "Unable to create payment."
+          );
+
+        }
+
+
+        message.className = "success";
+
+        message.textContent =
+          "Payment created. Redirecting to secure checkout...";
+
+
+        window.location.href =
+          data.payment_url;
+
+
+      } catch (error) {
+
+        button.disabled = false;
+
+        message.className = "error";
+
+        message.textContent =
+          error.message ||
+          "Something went wrong. Please try again.";
+
+      }
+
+    });
+
+
+  document.getElementById("year").textContent =
+    new Date().getFullYear();
+
+</script>
+
+</body>
+</html>
+
