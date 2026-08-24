@@ -1,1 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartSheet Hub — Download</title>
+</head>
+<body>
 
+  <h1>SmartSheet Hub</h1>
+
+  <h2>Your purchase is ready</h2>
+
+  <p>Your secure download is ready.</p>
+
+  <button id="downloadButton">Download your product</button>
+
+  <p id="message"></p>
+
+  <script>
+    const token = new URLSearchParams(window.location.search).get("token");
+
+    const button = document.getElementById("downloadButton");
+    const message = document.getElementById("message");
+
+    if (!token) {
+      button.disabled = true;
+      message.textContent = "Invalid download link.";
+    }
+
+    button.addEventListener("click", async () => {
+      button.disabled = true;
+      message.textContent = "Preparing your secure download...";
+
+      try {
+        const response = await fetch(
+          "https://chnwjktgwiijkxbiwjkc.supabase.co/functions/v1/secure-download",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ token })
+          }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok || !result.success) {
+          message.textContent =
+            result.error || "Download failed.";
+          button.disabled = false;
+          return;
+        }
+
+        message.textContent = "Your download is starting...";
+
+        window.location.href = result.download_url;
+
+      } catch (error) {
+        message.textContent =
+          "Unable to prepare the download.";
+        button.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>
