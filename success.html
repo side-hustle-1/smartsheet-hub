@@ -21,12 +21,26 @@
 
     const params = new URLSearchParams(window.location.search);
 
+    /*
+      New flow:
+      Jjuma returns the customer using our internal
+      merchant order ID.
+    */
+    const orderId =
+      params.get("order_id");
+
+    /*
+      Backward compatibility:
+      Keep supporting the previous reference parameter.
+    */
     const reference =
       params.get("reference");
 
-    if (!reference) {
+    if (!orderId && !reference) {
+
       message.textContent =
-        "Payment received, but the payment reference is missing.";
+        "Payment received, but the payment order could not be identified.";
+
     } else {
 
       const functionUrl =
@@ -36,17 +50,44 @@
 
         try {
 
-          const response =
-            await fetch(
+          /*
+            Prefer the new order_id.
+            Fall back to the old reference if necessary.
+          */
+
+          let requestUrl;
+
+          if (orderId) {
+
+            requestUrl =
+              functionUrl +
+              "?order_id=" +
+              encodeURIComponent(orderId);
+
+          } else {
+
+            requestUrl =
               functionUrl +
               "?reference=" +
-              encodeURIComponent(reference)
-            );
+              encodeURIComponent(reference);
+
+          }
+
+          const response =
+            await fetch(requestUrl);
 
           const result =
             await response.json();
 
-          if (response.ok && result.success && result.token) {
+          /*
+            Delivery is ready.
+          */
+
+          if (
+            response.ok &&
+            result.success &&
+            result.token
+          ) {
 
             message.textContent =
               "Your secure download is ready. Redirecting...";
@@ -58,15 +99,30 @@
             return;
           }
 
-          if (response.status === 202 || response.status === 409) {
+          /*
+            Payment is confirmed but the webhook/token
+            process may still be completing.
+          */
+
+          if (
+            response.status === 202 ||
+            response.status === 409
+          ) {
 
             message.textContent =
               "Payment confirmed. Preparing your secure download...";
 
-            setTimeout(checkDelivery, 2000);
+            setTimeout(
+              checkDelivery,
+              2000
+            );
 
             return;
           }
+
+          /*
+            Something unexpected happened.
+          */
 
           message.textContent =
             result.error ||
@@ -74,10 +130,23 @@
 
         } catch (error) {
 
+          /*
+            Temporary network/function problem.
+            Keep checking instead of failing immediately.
+          */
+
+          console.error(
+            "Delivery check error:",
+            error
+          );
+
           message.textContent =
             "We're preparing your download. Please wait...";
 
-          setTimeout(checkDelivery, 3000);
+          setTimeout(
+            checkDelivery,
+            3000
+          );
         }
       }
 
