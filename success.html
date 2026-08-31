@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>SmartSheet Hub — Purchase Successful</title>
+  <title>SmartSheet Hub — Payment Status</title>
 
   <style>
     * {
@@ -34,7 +34,17 @@
       box-shadow: 0 8px 25px rgba(0,0,0,.06);
     }
 
-    .check {
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 28px;
+    }
+
+    .logo span {
+      font-weight: 400;
+    }
+
+    .icon {
       width: 64px;
       height: 64px;
       margin: 0 auto 22px;
@@ -46,16 +56,6 @@
       justify-content: center;
       font-size: 32px;
       font-weight: bold;
-    }
-
-    .logo {
-      font-size: 24px;
-      font-weight: 800;
-      margin-bottom: 28px;
-    }
-
-    .logo span {
-      font-weight: 400;
     }
 
     h1 {
@@ -78,12 +78,14 @@
       background: #f5f7fa;
       color: #626b7d;
       font-size: 15px;
+      line-height: 1.5;
     }
 
     .note {
       margin-top: 22px;
       color: #687386;
       font-size: 13px;
+      line-height: 1.5;
     }
 
     .footer {
@@ -112,21 +114,24 @@
       SmartSheet <span>Hub</span>
     </div>
 
-    <div class="check">✓</div>
+    <div class="icon" id="icon">✓</div>
 
-    <h1>Payment successful</h1>
+    <h1 id="title">
+      Checking payment status
+    </h1>
 
-    <p class="intro">
-      Thank you for your purchase. Your payment has been received and we're
-      preparing your secure digital delivery.
+    <p class="intro" id="intro">
+      Please wait while we verify your payment and prepare your secure
+      digital delivery.
     </p>
 
     <div class="status" id="message">
-      Preparing your secure download...
+      Checking your payment...
     </div>
 
-    <p class="note"> 
-      If you have just completed payment, please keep this page open while we prepare your secure download.
+    <p class="note" id="note">
+      If you have just completed payment, please keep this page open while
+      we prepare your secure download.
     </p>
 
     <div class="footer">
@@ -137,35 +142,95 @@
 
 
   <script>
-    const message = document.getElementById("message");
+
+    const title =
+      document.getElementById("title");
+
+    const intro =
+      document.getElementById("intro");
+
+    const message =
+      document.getElementById("message");
+
+    const note =
+      document.getElementById("note");
+
+    const icon =
+      document.getElementById("icon");
+
 
     const params =
       new URLSearchParams(window.location.search);
+
 
     /*
       New flow:
       Jjuma returns the customer using our internal
       merchant order ID.
     */
+
     const orderId =
       params.get("order_id");
+
 
     /*
       Backward compatibility:
       Keep supporting the previous reference parameter.
     */
+
     const reference =
       params.get("reference");
 
+
+    /*
+      No payment identifier:
+      This can happen if someone visits success.html
+      directly instead of returning from checkout.
+    */
+
     if (!orderId && !reference) {
 
-  message.textContent =
-    "We couldn't identify your payment order. If you have already completed payment, please contact support. Otherwise, return to the checkout to complete your purchase.";
+      title.textContent =
+        "Payment status";
 
-} else {
+      intro.textContent =
+        "We could not identify a payment order for this page.";
+
+      message.textContent =
+        "We couldn't identify your payment order. If you have already completed payment, please contact support. Otherwise, return to the checkout to complete your purchase.";
+
+      note.textContent =
+        "If you have just completed payment, please return from the secure payment checkout so we can identify and prepare your order.";
+
+      icon.textContent =
+        "!";
+
+      icon.style.background =
+        "#fff5e6";
+
+      icon.style.color =
+        "#8a5a00";
+
+    } else {
+
+      /*
+        Payment information is present.
+        Continue with the normal delivery process.
+      */
+
+      title.textContent =
+        "Payment successful";
+
+      intro.textContent =
+        "Thank you for your purchase. Your payment has been received and we're preparing your secure digital delivery.";
+
+      message.textContent =
+        "Preparing your secure download...";
+
 
       const functionUrl =
         "https://chnwjktgwiijkxbiwjkc.supabase.co/functions/v1/get-delivery-token";
+
 
       async function checkDelivery() {
 
@@ -177,6 +242,7 @@
           */
 
           let requestUrl;
+
 
           if (orderId) {
 
@@ -194,11 +260,14 @@
 
           }
 
+
           const response =
             await fetch(requestUrl);
 
+
           const result =
             await response.json();
+
 
           /*
             Delivery is ready.
@@ -213,12 +282,15 @@
             message.textContent =
               "Your secure download is ready. Redirecting...";
 
+
             window.location.href =
               "download.html?token=" +
               encodeURIComponent(result.token);
 
+
             return;
           }
+
 
           /*
             Payment is confirmed but the webhook/token
@@ -226,20 +298,23 @@
           */
 
           if (
-  response.status === 202 ||
-  response.status === 409
-) {
+            response.status === 202 ||
+            response.status === 409
+          ) {
 
-  message.textContent =
-    "Payment confirmed. Preparing your secure download...";
+            message.textContent =
+              "Payment confirmed. Preparing your secure download...";
 
-  setTimeout(
-    checkDelivery,
-    2000
-  );
 
-  return;
-}
+            setTimeout(
+              checkDelivery,
+              2000
+            );
+
+
+            return;
+          }
+
 
           /*
             Something unexpected happened.
@@ -261,18 +336,25 @@
             error
           );
 
+
           message.textContent =
             "We're preparing your download. Please wait...";
+
 
           setTimeout(
             checkDelivery,
             3000
           );
+
         }
+
       }
 
+
       checkDelivery();
+
     }
+
   </script>
 
 </body>
