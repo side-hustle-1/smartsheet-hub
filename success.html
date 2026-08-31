@@ -1,25 +1,146 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>SmartSheet Hub — Purchase Successful</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f6f7fb;
+      color: #182033;
+      padding: 24px;
+    }
+
+    .card {
+      width: min(620px, 100%);
+      background: white;
+      border: 1px solid #e2e5eb;
+      border-radius: 18px;
+      padding: 42px 32px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0,0,0,.06);
+    }
+
+    .check {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 22px;
+      border-radius: 50%;
+      background: #eaf8ef;
+      color: #176b36;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 28px;
+    }
+
+    .logo span {
+      font-weight: 400;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: 34px;
+    }
+
+    .intro {
+      margin: 0 auto;
+      max-width: 500px;
+      color: #626b7d;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .status {
+      margin-top: 28px;
+      padding: 18px;
+      border-radius: 10px;
+      background: #f5f7fa;
+      color: #626b7d;
+      font-size: 15px;
+    }
+
+    .note {
+      margin-top: 22px;
+      color: #687386;
+      font-size: 13px;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #8a93a3;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 34px 22px;
+      }
+
+      h1 {
+        font-size: 29px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-  <h1>SmartSheet Hub</h1>
+  <main class="card">
 
-  <h2>Payment successful</h2>
+    <div class="logo">
+      SmartSheet <span>Hub</span>
+    </div>
 
-  <p id="message">
-    Your payment has been received. Preparing your secure download...
-  </p>
+    <div class="check">✓</div>
+
+    <h1>Payment successful</h1>
+
+    <p class="intro">
+      Thank you for your purchase. Your payment has been received and we're
+      preparing your secure digital delivery.
+    </p>
+
+    <div class="status" id="message">
+      Preparing your secure download...
+    </div>
+
+    <p class="note">
+      Please keep this page open while your secure download is being prepared.
+    </p>
+
+    <div class="footer">
+      Practical Backup & Recovery Resources
+    </div>
+
+  </main>
+
 
   <script>
     const message = document.getElementById("message");
 
-    const params = new URLSearchParams(window.location.search);
+    const params =
+      new URLSearchParams(window.location.search);
 
     /*
       New flow:
@@ -156,3 +277,4 @@
 
 </body>
 </html>
+```
