@@ -670,8 +670,7 @@
           "Payment created. Redirecting to secure checkout...";
 
 
-        window.location.href =
-          data.payment_url;
+       window.location.assign(data.payment_url);
 
 
       } catch (error) {
