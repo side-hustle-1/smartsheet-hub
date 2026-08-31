@@ -1,69 +1,294 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SmartSheet Hub — Download</title>
-</head>
-<body>
 
-  <h1>SmartSheet Hub</h1>
+  <title>SmartSheet Hub — Your Download</title>
 
-  <h2>Your purchase is ready</h2>
-
-  <p>Your secure download is ready.</p>
-
-  <button id="downloadButton">Download your product</button>
-
-  <p id="message"></p>
-
-  <script>
-    const token = new URLSearchParams(window.location.search).get("token");
-
-    const button = document.getElementById("downloadButton");
-    const message = document.getElementById("message");
-
-    if (!token) {
-      button.disabled = true;
-      message.textContent = "Invalid download link.";
+  <style>
+    * {
+      box-sizing: border-box;
     }
 
-    button.addEventListener("click", async () => {
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f6f7fb;
+      color: #182033;
+      padding: 24px;
+    }
+
+    .card {
+      width: min(620px, 100%);
+      background: white;
+      border: 1px solid #e2e5eb;
+      border-radius: 18px;
+      padding: 42px 32px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0,0,0,.06);
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 28px;
+    }
+
+    .logo span {
+      font-weight: 400;
+    }
+
+    .download-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 22px;
+      border-radius: 50%;
+      background: #eef1ff;
+      color: #182033;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    h1 {
+      margin: 0 0 14px;
+      font-size: 34px;
+    }
+
+    .intro {
+      margin: 0 auto;
+      max-width: 500px;
+      color: #626b7d;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .download-box {
+      margin-top: 28px;
+      padding: 24px;
+      background: #f5f7fa;
+      border-radius: 12px;
+    }
+
+    .button {
+      display: block;
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      padding: 16px;
+      background: #182033;
+      color: white;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      opacity: .9;
+    }
+
+    .button:disabled {
+      opacity: .65;
+      cursor: wait;
+    }
+
+    #message {
+      margin-top: 16px;
+      color: #626b7d;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .info {
+      margin-top: 25px;
+      text-align: left;
+      color: #626b7d;
+      font-size: 14px;
+    }
+
+    .info strong {
+      color: #182033;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 13px;
+      color: #8a93a3;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 34px 22px;
+      }
+
+      h1 {
+        font-size: 29px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="card">
+
+    <div class="logo">
+      SmartSheet <span>Hub</span>
+    </div>
+
+    <div class="download-icon">↓</div>
+
+    <h1>Your purchase is ready</h1>
+
+    <p class="intro">
+      Your secure digital delivery is ready. Click the button below to access
+      the files included with your purchase.
+    </p>
+
+    <div class="download-box">
+
+      <button
+        id="downloadButton"
+        class="button"
+      >
+        Download Your Product
+      </button>
+
+      <p id="message"></p>
+
+    </div>
+
+    <div class="info">
+      <p>
+        <strong>Secure delivery:</strong>
+        Your download link is protected and is not a permanent public file
+        link.
+      </p>
+
+      <p>
+        <strong>Download limit:</strong>
+        Your purchase allows up to 3 downloads.
+      </p>
+
+      <p>
+        Please save your downloaded files in a secure location after
+        downloading.
+      </p>
+    </div>
+
+    <div class="footer">
+      Practical Backup & Recovery Resources
+    </div>
+
+  </main>
+
+
+  <script>
+
+    const token =
+      new URLSearchParams(window.location.search)
+        .get("token");
+
+    const button =
+      document.getElementById("downloadButton");
+
+    const message =
+      document.getElementById("message");
+
+
+    if (!token) {
+
       button.disabled = true;
-      message.textContent = "Preparing your secure download...";
 
-      try {
-        const response = await fetch(
-          "https://chnwjktgwiijkxbiwjkc.supabase.co/functions/v1/secure-download",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ token })
+      message.textContent =
+        "This download link is invalid or incomplete.";
+
+    }
+
+
+    button.addEventListener(
+      "click",
+      async () => {
+
+        button.disabled = true;
+
+        message.textContent =
+          "Preparing your secure download...";
+
+
+        try {
+
+          const response =
+            await fetch(
+              "https://chnwjktgwiijkxbiwjkc.supabase.co/functions/v1/secure-download",
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type": "application/json"
+                },
+
+                body:
+                  JSON.stringify({
+                    token
+                  })
+              }
+            );
+
+
+          const result =
+            await response.json();
+
+
+          if (
+            !response.ok ||
+            !result.success
+          ) {
+
+            message.textContent =
+              result.error ||
+              "Download failed.";
+
+            button.disabled = false;
+
+            return;
           }
-        );
 
-        const result = await response.json();
 
-        if (!response.ok || !result.success) {
           message.textContent =
-            result.error || "Download failed.";
+            "Your download is starting...";
+
+
+          window.location.href =
+            result.download_url;
+
+        } catch (error) {
+
+          console.error(
+            "Secure download error:",
+            error
+          );
+
+          message.textContent =
+            "Unable to prepare the download. Please try again.";
+
           button.disabled = false;
-          return;
+
         }
 
-        message.textContent = "Your download is starting...";
-
-        window.location.href = result.download_url;
-
-      } catch (error) {
-        message.textContent =
-          "Unable to prepare the download.";
-        button.disabled = false;
       }
-    });
+    );
+
   </script>
 
 </body>
 </html>
+```
