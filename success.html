@@ -125,8 +125,8 @@
       Preparing your secure download...
     </div>
 
-    <p class="note">
-      Please keep this page open while your secure download is being prepared.
+    <p class="note"> 
+      If you have just completed payment, please keep this page open while we prepare your secure download.
     </p>
 
     <div class="footer">
@@ -230,8 +230,7 @@
             response.status === 409
           ) {
 
-            message.textContent =
-              "Payment confirmed. Preparing your secure download...";
+           message.textContent = "We couldn't identify your payment order. If you have already completed payment, please contact support. Otherwise, return to the checkout to complete your purchase.";
 
             setTimeout(
               checkDelivery,
