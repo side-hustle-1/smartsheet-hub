@@ -159,10 +159,10 @@
 
     if (!orderId && !reference) {
 
-      message.textContent =
-        "Payment received, but the payment order could not be identified.";
+  message.textContent =
+    "We couldn't identify your payment order. If you have already completed payment, please contact support. Otherwise, return to the checkout to complete your purchase.";
 
-    } else {
+} else {
 
       const functionUrl =
         "https://chnwjktgwiijkxbiwjkc.supabase.co/functions/v1/get-delivery-token";
