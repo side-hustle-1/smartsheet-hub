@@ -226,19 +226,20 @@
           */
 
           if (
-            response.status === 202 ||
-            response.status === 409
-          ) {
+  response.status === 202 ||
+  response.status === 409
+) {
 
-           message.textContent = "We couldn't identify your payment order. If you have already completed payment, please contact support. Otherwise, return to the checkout to complete your purchase.";
+  message.textContent =
+    "Payment confirmed. Preparing your secure download...";
 
-            setTimeout(
-              checkDelivery,
-              2000
-            );
+  setTimeout(
+    checkDelivery,
+    2000
+  );
 
-            return;
-          }
+  return;
+}
 
           /*
             Something unexpected happened.
